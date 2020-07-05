@@ -15,7 +15,7 @@ public class Attack : MonoBehaviour
         
     }
 
-    void clear()
+    public void clear()
     {
         SceneManager.LoadScene("Clear");
     }
