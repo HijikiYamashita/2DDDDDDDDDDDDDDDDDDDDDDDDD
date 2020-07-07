@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,7 +10,10 @@ public class PlayerController : MonoBehaviour
     Vector3 moveY = new Vector3(0, 1, 0);
 
     public float speed;
-    Vector3 target;
+    public Vector3 target;
+
+    float time = 30.0f;
+    public Text timeText;
 
     void Start()
     {
@@ -17,11 +22,23 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //transform.position = new Vector3(Mathf.Clamp(this.transform.position.x, -2.5f, 1.5f), Mathf.Clamp(this.transform.position.y, -2.5f, 1.5f), 0);
+
         if (transform.position == target)
         {
             SetTargetPosition();
         }
+
         Move();
+
+        time -= Time.deltaTime;
+        timeText.text = "残り時間 : " + time.ToString("f1") + " 秒";
+
+        if (time <= 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+
     }
 
     void SetTargetPosition()
